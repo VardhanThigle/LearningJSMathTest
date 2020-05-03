@@ -1,0 +1,131 @@
+<html>
+    <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .content {
+            overflow: auto;
+            border: 3px solid #666;
+            background-color: #1291b0;
+
+           .button {
+              background-color: #4CAF50;
+              border: none;
+              color: white;
+              padding: 20px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 4px 2px;
+              border-radius: 12-px
+          }
+      }
+      .content div {
+            padding: 10px;
+      }
+
+    </style>
+
+           <script>
+               var questions = [];
+               var answers = [];
+
+               var cur_question = 0;
+
+               var max_question = 0;
+
+
+               function UpdateScoreStr() {
+                       var score_str = "";
+                       score_str = score_str.concat(cur_question.toString());
+                       score_str = score_str.concat(" / ");
+                       score_str = score_str.concat((max_question ).toString());
+                       document.getElementById("score").innerHTML = score_str;
+                       console.log(score_str);
+               }
+              
+               function UpdateQuestion() {
+                       if (cur_question < max_question) {
+                           document.getElementById("question").innerHTML =
+                           questions[cur_question];
+                       } else {
+                           document.getElementById("question").innerHTML =
+                           "&#9734; &#9734; &#9734;"
+                           document.getElementById("click_me").style.visibility =
+                          "hidden";
+                           document.getElementById("ans").style.visibility =
+                          "hidden";
+                       }
+               }
+ 
+               function myFunction() {
+                  console.log("My Function!!");
+
+                  UpdateScoreStr();
+                  if ((document.getElementById("ans").value ==
+                      answers[cur_question])
+                  && (cur_question < (max_question))){
+
+                       cur_question = cur_question + 1;
+                       UpdateQuestion();
+                       UpdateScoreStr();
+                  } else {
+                          if (cur_question >= max_question) {
+                               document.getElementById("question").innerHTML =
+                           "&#9734; &#9734; &#9734;"
+                               document.getElementById("click_me").style.visibility =
+                              "hidden";
+                               document.getElementById("ans").style.visibility =
+                              "hidden";
+                          }
+                  }
+               } 
+
+               function AddIp() {
+                   questions.push(document.getElementById("qip").value);
+                   answers.push(document.getElementById("aip").value);
+                   max_question = max_question + 1;
+                   ques_str = "Question "
+                   ques_str = ques_str.concat(max_question)
+                   document.getElementById("qip.hdr").innerHTML = ques_str; 
+                  console.log(questions);
+                  console.log(answers);
+                  console.log(max_question);
+               }
+               function StartTest() {
+                   document.getElementById("Input").style.display = "none";
+                   UpdateScoreStr();
+                   UpdateQuestion();
+                   document.getElementById("test").style.display = "block";
+               }
+               
+            </script>
+    </head>
+    <body>
+
+        <div class = content id = "Input" style.display = "block">
+            <h1 id = "qip.hdr" > Question 0 </h1> 
+            <input id = "qip" onfocus="this.value=''"> </input>
+            <h1 id = "aip.hdr" > Answer</h1> 
+            <input id = "aip" onfocus="this.value=''"> </input>
+           <button type="button" id="add_me"
+                   onclick='AddIp()'>Add</button>
+
+           <button type="button" id="start_test"
+                   onclick='StartTest()'>Start Test</button>
+           </div>
+
+        <div class = content id = "test" style.display = "none">
+            <h1>Easy Peasy Sums for Tutti!!</h1>
+            <h1 id="score" >0/0</h1>
+            <h1 id="question"> "0 + 0 = __" </h1>
+            <input type="text" align="center" id="ans" name="ans"
+            value = "0" onfocus="this.value=''"><br><br>
+           <button type="button" id="click_me"
+                   onclick='myFunction()'>Click Me!</button>
+         </div>
+
+    </body>
+</html> 
